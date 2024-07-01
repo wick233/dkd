@@ -93,4 +93,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{id}
         </foreach>
     </delete>
+
+    <select id="selectPartneryVo" resultType="com.dkd.manage.domain.vo.PartnerVo">
+        SELECT p.id,p.partner_name,p.account,p.profit_ratio,p.contact_person,p.contact_phone ,IFNULL(r.node_count,0) as node_count FROM
+            tb_partner  p
+                LEFT JOIN
+            (SELECT region_id ,COUNT(*) AS node_count FROM tb_node GROUP BY region_id) r
+            on
+                p.id = r.region_id
+        <where>
+            <if test="partnerName != null  and partnerName != ''"> and partner_name like concat('%', #{partnerName}, '%')</if>
+        </where>
+    </select>
+
+    <delete id="deleteresetPwd">
+        update tb_partner set password =#{password} where id = #{id}
+    </delete>
 </mapper>

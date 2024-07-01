@@ -2,6 +2,7 @@ package com.dkd.manage.service.impl;
 
 import java.util.List;
 import com.dkd.common.utils.DateUtils;
+import com.dkd.manage.domain.vo.RegionVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.dkd.manage.mapper.RegionMapper;
@@ -15,8 +16,8 @@ import com.dkd.manage.service.IRegionService;
  * @date 2024-06-30
  */
 @Service
-public class RegionServiceImpl implements IRegionService 
-{
+public class RegionServiceImpl implements IRegionService {
+
     @Autowired
     private RegionMapper regionMapper;
 
@@ -53,6 +54,7 @@ public class RegionServiceImpl implements IRegionService
     @Override
     public int insertRegion(Region region)
     {
+
         region.setCreateTime(DateUtils.getNowDate());
         return regionMapper.insertRegion(region);
     }
@@ -92,5 +94,17 @@ public class RegionServiceImpl implements IRegionService
     public int deleteRegionById(Long id)
     {
         return regionMapper.deleteRegionById(id);
+    }
+
+    /**
+     * 根据给定的Region对象，查询对应的RegionVo列表。
+     * 此方法目前尚未实现，返回值为null。
+     *
+     * @param region Region对象，包含查询条件。
+     * @return List<RegionVo> 查询结果列表，
+     */
+    @Override
+    public List<RegionVo> selectRegionVoList(Region region) {
+        return regionMapper.selectRegionVoList(region);
     }
 }

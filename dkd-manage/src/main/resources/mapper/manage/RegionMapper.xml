@@ -73,4 +73,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{id}
         </foreach>
     </delete>
+
+    <select id="selectRegionVoList" resultType="com.dkd.manage.domain.vo.RegionVo">
+        -- 查询tb_region表，并统计每个区域关联的tb_node数量，支持按region_name模糊搜索
+        SELECT
+        regions.id,
+        regions.region_name,
+        regions.remark,
+        IFNULL(node_counts.node_count, 0) AS node_count
+        FROM
+        tb_region AS regions
+        LEFT JOIN (
+        -- 子查询统计每个region_id的节点数量
+        SELECT region_id, COUNT(*) AS node_count
+        FROM tb_node
+        GROUP BY region_id
+        ) AS node_counts ON regions.id = node_counts.region_id
+        <where>
+            <!-- 动态添加region_name模糊匹配条件，仅当regionName不为null -->
+            <if test="regionName != null">
+                AND regions.region_name LIKE CONCAT('%', #{regionName}, '%')
+            </if>
+        </where>
+
+    </select>
 </mapper>

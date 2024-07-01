@@ -2,6 +2,7 @@ package com.dkd.manage.mapper;
 
 import java.util.List;
 import com.dkd.manage.domain.Region;
+import com.dkd.manage.domain.vo.RegionVo;
 
 /**
  * 区域管理Mapper接口
@@ -58,4 +59,13 @@ public interface RegionMapper
      * @return 结果
      */
     public int deleteRegionByIds(Long[] ids);
+
+   /**
+ * 查询区域信息列表
+ *
+ * @param region 查询条件，可以为空。如果传入，将根据Region对象中的属性进行筛选
+ * @return 区域信息的列表，列表中的元素类型为RegionVo，包含各个区域的具体信息
+ */
+    public List<RegionVo> selectRegionVoList(Region region);
+
 }
