@@ -6,7 +6,7 @@ ruoyi:
   version: 3.8.7
   # 版权年份
   copyrightYear: 2024
-  # 文件路径 示例（ Windows配置D:/ruoyi/uploadPath，Linux配置 /home/ruoyi/uploadPath）
+  # 文件路径 示例（ Windows配置D:/ruoyi/uploadPath，Linux配置 /home/ruoyi/uploadPath）就是图片啥的存储位置
   profile: D:/ruoyi/uploadPath
   # 获取ip地址开关
   addressEnabled: false
@@ -127,3 +127,21 @@ xss:
   excludes: /system/notice
   # 匹配链接
   urlPatterns: /system/*,/monitor/*,/tool/*
+
+#文件上传  使用X File Storage
+dromara:
+  x-file-storage: #文件存储配置
+    default-platform: aliyun-oss-1   #默认使用的存储平台
+    thumbnail-suffix: ".min.jpg" #缩略图后缀，例如【.min.jpg】【.png】
+    #对应平台的配置写在这里，注意缩进要对齐
+    aliyun-oss:
+      - platform: aliyun-oss-1 # 存储平台标识
+        enable-storage: true  # 启用存储
+        access-key:
+        secret-key:
+        end-point: oss-cn-beijing.aliyuncs.com
+        bucket-name: jiayi-kang
+        domain: https://jiayi-kang.oss-cn-beijing.aliyuncs.com/ # 访问域名，注意“/”结尾，例如：https://abc.oss-cn-shanghai.aliyuncs.com/
+        base-path: dkd-image # 基础路径
+
+
